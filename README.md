@@ -12,7 +12,6 @@ Role Variables
 --------------
 
 wok_customize:
-
   system_title: Wok
   system_logo: default
   logo_padding: 60px
