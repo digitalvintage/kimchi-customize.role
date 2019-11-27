@@ -1,7 +1,7 @@
 Role Name
 =========
 
-A role for Wok/Kimchi customization. Also fixes some visual bugs
+An Ansible role for Wok/Kimchi customization. Also fixes some visual bugs
 
 Requirements
 ------------
