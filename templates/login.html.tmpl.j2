@@ -1,0 +1,339 @@
+#*
+ * Project Wok
+ *
+ * Copyright IBM Corp, 2014-2017
+ *
+ * Code derived from Project Kimchi
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+#unicode UTF-8
+#import gettext
+#from wok.cachebust import href
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
+#silent _ = t.gettext
+#silent _t = t.gettext
+#silent next = "?next=%s" % $getVar('data.next', '') if $getVar('data.next', '') else ""
+#from wok.config import get_version
+<!DOCTYPE html>
+<html lang="$lang.lang[0]">
+<head>
+    <meta charset="UTF-8">
+{% if wok_customize.system_title | default(false) %}
+    <title>{{ wok_customize.system_title }}</title>
+{% else %}
+    <title>Wok</title>
+{% endif %}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Wok">
+    <link href="$href('images/apple-touch-icon-57x57.png')" sizes="57x57" rel="apple-touch-icon-precomposed">
+    <link href="$href('images/apple-touch-icon-72x72.png')" sizes="72x72" rel="apple-touch-icon-precomposed">
+    <link href="$href('images/apple-touch-icon-76x76.png')" sizes="76x76" rel="apple-touch-icon-precomposed">
+    <link href="$href('images/apple-touch-icon-114x114.png')" sizes="114x114" rel="apple-touch-icon-precomposed">
+    <link href="$href('images/apple-touch-icon-144x144.png')" sizes="144x144" rel="apple-touch-icon-precomposed">
+    <link href="$href('images/apple-touch-icon-152x152.png')" sizes="152x152" rel="apple-touch-icon-precomposed">
+    <link href="$href('images/apple-touch-icon-180x180.png')" sizes="120x120" rel="apple-touch-icon-precomposed">
+    <link rel="icon" type="image/png" href="$href('images/android-chrome-36x36.png')" sizes="36x36">
+    <link rel="icon" type="image/png" href="$href('images/android-chrome-48x48.png')" sizes="48x48">
+    <link rel="icon" type="image/png" href="$href('images/android-chrome-72x72.png')" sizes="72x72">
+    <link rel="icon" type="image/png" href="$href('images/android-chrome-96x96.png')" sizes="96x96">
+    <link rel="icon" type="image/png" href="$href('images/android-chrome-144x144.png')" sizes="144x144">
+    <link rel="icon" type="image/png" href="$href('images/android-chrome-192x192.png')" sizes="192x192">
+    <link rel="icon" type="image/png" href="$href('images/favicon-16x16.png')" sizes="16x16">
+    <link rel="icon" type="image/png" href="$href('images/favicon-32x32.png')" sizes="32x32">
+    <link rel="icon" type="image/png" href="$href('images/favicon-96x96.png')" sizes="96x96">
+    <link rel="icon" type="image/png" href="$href('images/favicon-194x194.png')" sizes="194x194">
+    <link rel="mask-icon" href="$href('images/safari-pinned-tab.svg')" color="#5bbad5">
+    <meta name="application-name" content="Wok">
+    <meta name="msapplication-config" content="none" />
+    <meta name="msapplication-TileColor" content="#f73434" />
+    <meta name="msapplication-square70x70logo" content="$href('images/mstile-70x70.png')" />
+    <meta name="msapplication-square150x150logo" content="$href('images/mstile-150x150.png')" />
+    <meta name="msapplication-wide310x150logo" content="$href('images/mstile-310x310.png')" />
+    <meta name="msapplication-square310x310logo" content="$href('images/mstile-310x150.png')" />
+    <link rel="stylesheet" href="$href('libs/jquery-ui/themes/base/jquery-ui.min.css')">
+    <link rel="stylesheet" href="$href('css/jquery-ui.custom.css')">
+    <link rel="stylesheet" href="$href('css/bootstrap.custom.css')">
+    <link rel="stylesheet" href="$href('libs/bootstrap-select/dist/css/bootstrap-select.min.css')">
+    <link rel="stylesheet" href="$href('libs/datatables/css/datatables.min.css')">
+    <link rel="stylesheet" href="$href('css/fontawesome/fontawesome.css')">
+    <link rel="stylesheet" href="$href('css/bootstrap-select.custom.css')">
+    <link rel="stylesheet" href="$href('css/datatables.bootstrap.css')">
+    <link rel="stylesheet" href="$href('css/wok.css')">
+    <script src="$href('libs/es5-shim/es5-shim.min.js')"></script>
+    <script src="$href('libs/jquery/jquery.min.js')"></script>
+    <script src="$href('libs/jquery-ui/jquery-ui.min.js')"></script>
+    <script src="$href('libs/jquery-ui/jquery-ui-i18n.min.js')"></script>
+    <script src="$href('libs/jquery-i18n/jquery.i18n.min.js')"></script>
+    <script src="$href('libs/bootstrap/bootstrap.min.js')"></script>
+    <script src="$href('libs/bootstrap-select/dist/js/bootstrap-select.min.js')"></script>
+    <script src="$href('libs/lodash/lodash.min.js')"></script>
+    <script src="$href('libs/moment/moment-with-locales.min.js')"></script>
+    <script src="$href('libs/datatables/js/datatables.min.js')"></script>
+    <script src="$href('js/wok.min.js')"></script>
+</head>
+<body class="login" onload="wok.login_main()">
+    <div class="topbar">
+        <nav class="navbar navbar-inverse">
+            <div class="container">
+                <div class="navbar-header">
+{% if wok_customize.system_title | default(false) %}
+                    <a class="navbar-brand" href="#">{{ wok_customize.system_title }}</a>
+{% else %}
+                    <a class="navbar-brand" href="#">Wok</a>
+{% endif %}
+                </div>
+            </div>
+        </nav>
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                </div>
+                    <ul class="nav navbar-nav">
+                        <li class="hostname"><span class="host-location"></span></li>
+                    </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="content">
+        <div class="container">
+            <div id="login-window" class="login-area row">
+                <div class="err-area">
+                    <div id="errorArea" class="alert alert-danger" style="display: none;"></div>
+                </div>
+                <form id="form-login" class="form-horizontal" method="post">
+                    <div class="form-group">
+                        <label for="username" class="sr-only">$_("User Name")</label>
+                        <input type="text" class="form-control" id="username" name="username" required="required" placeholder="$_(" User Name ")" autofocus autocomplete="off" title=" " />
+                        <div id="username-msg" class="msg-required"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="sr-only">$_("Password")</label>
+                        <input type="password" class="form-control" id="password" name="password" required="required" placeholder="$_(" Password ")"  autocomplete="off" title=" "/>
+                        <div id="password-msg" class="msg-required"></div>
+                    </div>
+                    <div class="form-group">
+                        <button id="btn-login" class="btn btn-login col-md-12 col-lg-12">
+                            <span id="login">$_("Log in")</span>
+                            <span id="logging" style="display: none;">$_("Logging in...")</span>
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <label for="userLang">$_("Language")</label>
+                        <select id="userLang" class="selectpicker col-md-12 col-lg-12">
+                            <option value="en_US" selected="selected">English (US)</option>
+                            <option value="zh_CN">中文（简体）</option>
+                            <option value="pt_BR">Português (Brasil)</option>
+                            <option value="de_DE">Deutsch (Deutschland)</option>
+                            <option value="es_ES">Español (España)</option>
+                            <option value="fr_FR">Français (France)</option>
+                            <option value="it_IT">Italiano (Italia)</option>
+                            <option value="ja_JP">日本語 (日本)</option>
+                            <option value="ko_KR">한국어 (대한민국)</option>
+                            <option value="ru_RU">Русский (Россия)</option>
+                            <option value="zh_TW">中文（繁體）</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="userLocale">$_("Locale")</label>
+                        <select id="userLocale" class="selectpicker col-md-12 col-lg-12">
+                           <option value="af-ZA">$_("Afrikaans (South Africa)")</option>
+                           <option value="sq-AL">$_("Albanian (Albania)")</option>
+                           <option value="am-ET">$_("Amharic (Ethiopia)")</option>
+                           <option value="ar-DZ">$_("Arabic (Algeria)")</option>
+                           <option value="ar-BH">$_("Arabic (Bahrain)")</option>
+                           <option value="ar-EG">$_("Arabic (Egypt)")</option>
+                           <option value="ar-IQ">$_("Arabic (Iraq)")</option>
+                           <option value="ar-JO">$_("Arabic (Jordan)")</option>
+                           <option value="ar-KW">$_("Arabic (Kuwait)")</option>
+                           <option value="ar-LB">$_("Arabic (Lebanon)")</option>
+                           <option value="ar-LY">$_("Arabic (Libya)")</option>
+                           <option value="ar-MR">$_("Arabic (Mauritania)")</option>
+                           <option value="ar-MA">$_("Arabic (Morocco)")</option>
+                           <option value="ar-OM">$_("Arabic (Oman)")</option>
+                           <option value="ar-QA">$_("Arabic (Qatar)")</option>
+                           <option value="ar-SA">$_("Arabic (Saudi Arabia)")</option>
+                           <option value="ar-SY">$_("Arabic (Syria)")</option>
+                           <option value="ar-TN">$_("Arabic (Tunisia)")</option>
+                           <option value="ar-AE">$_("Arabic (United Arab Emirates)")</option>
+                           <option value="ar-YE">$_("Arabic (Yemen)")</option>
+                           <option value="hy-AM">$_("Armenian (Armenia)")</option>
+                           <option value="as-IN">$_("Assamese (India)")</option>
+                           <option value="az-AZ">$_("Azerbaijani (Azerbaijan)")</option>
+                           <option value="eu-ES">$_("Basque (Spain)")</option>
+                           <option value="be-BY">$_("Belarusian (Belarus)")</option>
+                           <option value="bn-BD">$_("Bengali (Bangladesh)")</option>
+                           <option value="bn-IN">$_("Bengali (India)")</option>
+                           <option value="bs-BA">$_("Bosnian (Bosnia)")</option>
+                           <option value="bg-BG">$_("Bulgarian (Bulgaria)")</option>
+                           <option value="my-MM">$_("Burmese (Myanmar)")</option>
+                           <option value="ca-ES">$_("Catalan (Spain)")</option>
+                           <option value="zh-CN">$_("Chinese-simplified (China)")</option>
+                           <option value="zh-SG">$_("Chinese-simplified (Singapore)")</option>
+                           <option value="zh-HK">$_("Chinese-traditional (Hong Kong S.A.R. of China)")</option>
+                           <option value="zh-MO">$_("Chinese-traditional (Macao)")</option>
+                           <option value="zh-TW">$_("Chinese-traditional (Taiwan)")</option>
+                           <option value="hr-HR">$_("Croatian (Croatia)")</option>
+                           <option value="cs-CZ">$_("Czech (Czech Republic)")</option>
+                           <option value="da-DK">$_("Danish (Denmark)")</option>
+                           <option value="nl-BE">$_("Dutch (Belgium)")</option>
+                           <option value="nl-NL">$_("Dutch (The Netherlands)")</option>
+                           <option value="en-AU">$_("English (Australia)")</option>
+                           <option value="en-BE">$_("English (Belgium)")</option>
+                           <option value="en-CM">$_("English (Cameroon)")</option>
+                           <option value="en-CA">$_("English (Canada)")</option>
+                           <option value="en-GH">$_("English (Ghana)")</option>
+                           <option value="en-HK">$_("English (Hong Kong S.A.R. of China)")</option>
+                           <option value="en-IN">$_("English (India)")</option>
+                           <option value="en-IE">$_("English (Ireland)")</option>
+                           <option value="en-KE">$_("English (Kenya)")</option>
+                           <option value="en-MU">$_("English (Mauritius)")</option>
+                           <option value="en-NZ">$_("English (New Zealand)")</option>
+                           <option value="en-NG">$_("English (Nigeria)")</option>
+                           <option value="en-PH">$_("English (Philippines)")</option>
+                           <option value="en-SG">$_("English (Singapore)")</option>
+                           <option value="en-ZA">$_("English (South Africa)")</option>
+                           <option value="en-TZ">$_("English (Tanzania)")</option>
+                           <option value="en-GB">$_("English (United Kingdom)")</option>
+                           <option value="en-US" selected="selected">$_("English (United States)")</option>
+                           <option value="en-ZM">$_("English (Zambia)")</option>
+                           <option value="et-EE">$_("Estonian (Estonia)")</option>
+                           <option value="tl-PH">$_("Filipino (Philippines)")</option>
+                           <option value="fi-FI">$_("Finnish (Finland)")</option>
+                           <option value="fr-DZ">$_("French (Algeria)")</option>
+                           <option value="fr-CM">$_("French (Cameroon)")</option>
+                           <option value="fr-CD">$_("French (Democratic Republic of the Congo)")</option>
+                           <option value="fr-BE">$_("French (Belgium)")</option>
+                           <option value="fr-CA">$_("French (Canada)")</option>
+                           <option value="fr-FR">$_("French (France)")</option>
+                           <option value="fr-CI">$_("French (Ivory Coast [Côte d’Ivoire])")</option>
+                           <option value="fr-LU">$_("French (Luxembourg)")</option>
+                           <option value="fr-MR">$_("French (Mauritania)")</option>
+                           <option value="fr-MU">$_("French (Mauritius)")</option>
+                           <option value="fr-MA">$_("French (Morocco)")</option>
+                           <option value="fr-SN">$_("French (Senegal)")</option>
+                           <option value="fr-CH">$_("French (Switzerland)")</option>
+                           <option value="fr-TN">$_("French (Tunisia)")</option>
+                           <option value="gl-ES">$_("Galician (Spain)")</option>
+                           <option value="lg-UG">$_("Ganda (Uganda)")</option>
+                           <option value="ka-GE">$_("Georgian (Georgia)")</option>
+                           <option value="de-AT">$_("German (Austria)")</option>
+                           <option value="de-DE">$_("German (Germany)")</option>
+                           <option value="de-LU">$_("German (Luxembourg)")</option>
+                           <option value="de-CH">$_("German (Switzerland)")</option>
+                           <option value="el-GR">$_("Greek (Greece)")</option>
+                           <option value="gu-IN">$_("Gujarati (India)")</option>
+                           <option value="ha-NG">$_("Hausa (Nigeria)")</option>
+                           <option value="he-IL">$_("Hebrew (Israel)")</option>
+                           <option value="hi-IN">$_("Hindi (India)")</option>
+                           <option value="hu-HU">$_("Hungarian (Hungary)")</option>
+                           <option value="is-IS">$_("Icelandic (Iceland)")</option>
+                           <option value="ig-NG">$_("Igbo (Nigeria)")</option>
+                           <option value="id-ID">$_("Indonesian (Indonesia)")</option>
+                           <option value="it-IT">$_("Italian (Italy)")</option>
+                           <option value="it-CH">$_("Italian (Switzerland)")</option>
+                           <option value="ja-JP">$_("Japanese (Japan)")</option>
+                           <option value="kn-IN">$_("Kannada (India)")</option>
+                           <option value="kk-KZ">$_("Kazakh (Kazakhstan)")</option>
+                           <option value="km-KH">$_("Khmer (Cambodia)")</option>
+                           <option value="rw-RW">$_("Kinyarwanda (Rwanda)")</option>
+                           <option value="kok-IN">$_("Konkani (India)")</option>
+                           <option value="ko-KR">$_("Korean (Korea, South)")</option>
+                           <option value="lo-LA">$_("Lao (Laos)")</option>
+                           <option value="lv-LV">$_("Latvian (Latvia)")</option>
+                           <option value="lt-LT">$_("Lithuanian (Lithuania)")</option>
+                           <option value="mk-MK">$_("Macedonian (Macedonia)")</option>
+                           <option value="ms-MY">$_("Malay-Latin (Malaysia)")</option>
+                           <option value="ml-IN">$_("Malayalam (India)")</option>
+                           <option value="mt-MT">$_("Maltese (Malta)")</option>
+                           <option value="mr-IN">$_("Marathi (India)")</option>
+                           <option value="mn-Cyrl-MN">$_("Mongolian-Cyrillic (Mongolia)")</option>
+                           <option value="ne-IN">$_("Nepali (India)")</option>
+                           <option value="ne-NP">$_("Nepali (Nepal)")</option>
+                           <option value="nb-NO">$_("Norwegian Bokmål (Norway)")</option>
+                           <option value="nn-NO">$_("Norwegian Nynorsk (Norway)")</option>
+                           <option value="or-IN">$_("Oriya [aka, Odia] (India)")</option>
+                           <option value="om-ET">$_("Oromo (Ethiopia)")</option>
+                           <option value="pl-PL">$_("Polish (Poland)")</option>
+                           <option value="pt-AO">$_("Portuguese (Angola)")</option>
+                           <option value="pt-BR">$_("Portuguese (Brazil)")</option>
+                           <option value="pt-MO">$_("Portuguese (Macao)")</option>
+                           <option value="pt-MZ">$_("Portuguese (Mozambique)")</option>
+                           <option value="pt-PT">$_("Portuguese (Portugal)")</option>
+                           <option value="pa-IN">$_("Punjabi (India)")</option>
+                           <option value="ro-RO">$_("Romanian (Romania)")</option>
+                           <option value="ru-RU">$_("Russian (Russia)")</option>
+                           <option value="sr-RS">$_("Serbian-Cyrillic (Serbia)")</option>
+                           <option value="sr-ME">$_("Serbian-Latin (Montenegro)")</option>
+                           <option value="sr-Latn-RS">$_("Serbian-Latin (Serbia)")</option>
+                           <option value="si-LK">$_("Sinhala (Sri Lanka)")</option>
+                           <option value="sk-SK">$_("Slovak (Slovakia)")</option>
+                           <option value="sl-SI">$_("Slovenian (Slovenia)")</option>
+                           <option value="es-AR">$_("Spanish (Argentina)")</option>
+                           <option value="es-BO">$_("Spanish (Bolivia)")</option>
+                           <option value="es-CL">$_("Spanish (Chile)")</option>
+                           <option value="es-CO">$_("Spanish (Colombia)")</option>
+                           <option value="es-CR">$_("Spanish (Costa Rica)")</option>
+                           <option value="es-DO">$_("Spanish (Dominican Republic)")</option>
+                           <option value="es-EC">$_("Spanish (Ecuador)")</option>
+                           <option value="es-SV">$_("Spanish (El Salvador)")</option>
+                           <option value="es-GT">$_("Spanish (Guatemala)")</option>
+                           <option value="es-HN">$_("Spanish (Honduras)")</option>
+                           <option value="es-MX">$_("Spanish (Mexico)")</option>
+                           <option value="es-NI">$_("Spanish (Nicaragua)")</option>
+                           <option value="es-PA">$_("Spanish (Panama)")</option>
+                           <option value="es-PY">$_("Spanish (Paraguay)")</option>
+                           <option value="es-PE">$_("Spanish (Peru)")</option>
+                           <option value="es-PR">$_("Spanish (Puerto Rico)")</option>
+                           <option value="es-ES">$_("Spanish (Spain)")</option>
+                           <option value="es-US">$_("Spanish (United States)")</option>
+                           <option value="es-UY">$_("Spanish (Uruguay)")</option>
+                           <option value="es-VE">$_("Spanish (Venezuela)")</option>
+                           <option value="sw-KE">$_("Swahili (Kenya)")</option>
+                           <option value="sw-TZ">$_("Swahili (Tanzania)")</option>
+                           <option value="sv-SE">$_("Swedish (Sweden)")</option>
+                           <option value="ta-IN">$_("Tamil (India)")</option>
+                           <option value="te-IN">$_("Telugu (India)")</option>
+                           <option value="th-TH">$_("Thai (Thailand)")</option>
+                           <option value="tr-TR">$_("Turkish (Turkey)")</option>
+                           <option value="uk-UA">$_("Ukrainian (Ukraine)")</option>
+                           <option value="ur-IN">$_("Urdu (India)")</option>
+                           <option value="ur-PK">$_("Urdu (Pakistan)")</option>
+                           <option value="uz-Cyrl-UZ">$_("Uzbek-Cyrillic (Uzbekistan)")</option>
+                           <option value="uz-Latn-UZ">$_("Uzbek-Latin (Uzbekistan)")</option>
+                           <option value="vi-VN">$_("Vietnamese (Vietnam)")</option>
+                           <option value="cy-GB">$_("Welsh (United Kingdom)")</option>
+                           <option value="yo-NG">$_("Yoruba (Nigeria)")</option>
+                           <option value="zu-ZA">$_("Zulu (South Africa)")</option>
+                           <option value="az-AZ">$_("Azerbaijani-Latin (Azerbaijan)")</option>
+                           <option value="sr-CS">$_("Serbian-Cyrillic ()")</option>
+                           <option value="sr-Cyrl-CS">$_("Serbian-Cyrillic (Serbia and Montenegro)")</option>
+                           <option value="sr-Latn-CS">$_("Serbian-Latin (Serbia and Montenegro)")</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 delayed-fadein">
+{% if wok_customize.show_plugin_info %}
+                    <p class="text-muted powered hidden">$_("Powered by:")</p>
+                    <ul id="wok-logos" class="list-inline"></ul>
+{% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

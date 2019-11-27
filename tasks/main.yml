@@ -1,0 +1,40 @@
+---
+# tasks file for kimchi-customize.role---
+
+- name: Patch bootstrap.custom.css (fixing and customizing)
+  template: 
+    src: bootstrap.custom.css.j2
+    dest: /usr/share/wok/ui/css/bootstrap.custom.css
+    force: yes
+    backup: yes
+
+- name: Patch settings.css (fixing)
+  template: 
+    src: settings.css.j2
+    dest: /usr/share/wok/ui/css/settings.css
+    force: yes
+    backup: yes
+
+- name: Patch main UI template (customizing)
+  template: 
+    src: wok-ui.html.tmpl.j2
+    dest: /usr/share/wok/ui/pages/wok-ui.html.tmpl
+    force: yes
+    backup: yes
+
+- name: Patch login page template (customizing)
+  template: 
+    src: login.html.tmpl.j2
+    dest: /usr/share/wok/ui/pages/login.html.tmpl
+    force: yes
+    backup: yes
+
+- name: Install new logo (customizing)
+  copy: 
+    src: epsi-logo.png
+    dest: /usr/share/wok/ui/images/epsi-logo.png
+    owner: root
+    group: root
+    mode: '0644'
+    backup: yes
+  when: wok_customize.system_logo != 'default'

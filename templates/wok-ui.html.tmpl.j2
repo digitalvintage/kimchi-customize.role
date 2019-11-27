@@ -1,0 +1,214 @@
+#*
+ * Project Wok
+ *
+ * Copyright IBM Corp, 2015-2017
+ *
+ * Code derived from Project Kimchi
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *#
+#unicode UTF-8
+#import gettext
+#from wok.cachebust import href
+#silent t = gettext.translation($lang.domain, $lang.localedir, languages=$lang.lang, fallback=True)
+#silent _ = t.gettext
+#silent _t = t.gettext
+#from wok.config import get_version
+<!DOCTYPE html>
+<html lang="$lang.lang[0]">
+<head>
+    <meta charset="UTF-8">
+{% if wok_customize.system_title | default(false) %}
+    <title>{{ wok_customize.system_title }}</title>
+{% else %}
+    <title>Wok</title>
+{% endif %}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Wok">
+    <link href="$href('images/apple-touch-icon-57x57.png')" sizes="57x57" rel="apple-touch-icon-precomposed">
+    <link href="$href('images/apple-touch-icon-72x72.png')" sizes="72x72" rel="apple-touch-icon-precomposed">
+    <link href="$href('images/apple-touch-icon-76x76.png')" sizes="76x76" rel="apple-touch-icon-precomposed">
+    <link href="$href('images/apple-touch-icon-114x114.png')" sizes="114x114" rel="apple-touch-icon-precomposed">
+    <link href="$href('images/apple-touch-icon-144x144.png')" sizes="144x144" rel="apple-touch-icon-precomposed">
+    <link href="$href('images/apple-touch-icon-152x152.png')" sizes="152x152" rel="apple-touch-icon-precomposed">
+    <link href="$href('images/apple-touch-icon-180x180.png')" sizes="120x120" rel="apple-touch-icon-precomposed">
+    <link rel="icon" type="image/png" href="$href('images/android-chrome-36x36.png')" sizes="36x36">
+    <link rel="icon" type="image/png" href="$href('images/android-chrome-48x48.png')" sizes="48x48">
+    <link rel="icon" type="image/png" href="$href('images/android-chrome-72x72.png')" sizes="72x72">
+    <link rel="icon" type="image/png" href="$href('images/android-chrome-96x96.png')" sizes="96x96">
+    <link rel="icon" type="image/png" href="$href('images/android-chrome-144x144.png')" sizes="144x144">
+    <link rel="icon" type="image/png" href="$href('images/android-chrome-192x192.png')" sizes="192x192">
+    <link rel="icon" type="image/png" href="$href('images/favicon-16x16.png')" sizes="16x16">
+    <link rel="icon" type="image/png" href="$href('images/favicon-32x32.png')" sizes="32x32">
+    <link rel="icon" type="image/png" href="$href('images/favicon-96x96.png')" sizes="96x96">
+    <link rel="icon" type="image/png" href="$href('images/favicon-194x194.png')" sizes="194x194">
+    <link rel="mask-icon" href="$href('images/safari-pinned-tab.svg')" color="#5bbad5">
+    <meta name="application-name" content="Wok">
+    <meta name="msapplication-config" content="none" />
+    <meta name="msapplication-TileColor" content="#f73434" />
+    <meta name="msapplication-square70x70logo" content="$href('images/mstile-70x70.png')" />
+    <meta name="msapplication-square150x150logo" content="$href('images/mstile-150x150.png')" />
+    <meta name="msapplication-wide310x150logo" content="$href('images/mstile-310x310.png')" />
+    <meta name="msapplication-square310x310logo" content="$href('images/mstile-310x150.png')" />
+    <link rel="stylesheet" href="$href('libs/jquery-ui/themes/base/jquery-ui.min.css')">
+    <link rel="stylesheet" href="$href('css/jquery-ui.custom.css')">
+    <link rel="stylesheet" href="$href('css/bootstrap.custom.css')">
+    <link rel="stylesheet" href="$href('libs/bootstrap-select/dist/css/bootstrap-select.min.css')">
+    <link rel="stylesheet" href="$href('libs/jquery-bootgrid/dist/css/jquery.bootgrid.min.css')">
+    <link rel="stylesheet" href="$href('libs/bootstrap-switch/dist/css/bootstrap-switch.min.css')">
+    <link rel="stylesheet" href="$href('libs/bootstrap-editable/dist/css/bootstrap-editable.css')">
+    <link rel="stylesheet" href="$href('libs/datatables/css/datatables.min.css')">
+    <link rel="stylesheet" href="$href('css/fontawesome/fontawesome.css')">
+    <link rel="stylesheet" href="$href('css/bootstrap-select.custom.css')">
+    <link rel="stylesheet" href="$href('css/datatables.bootstrap.css')">
+    <link rel="stylesheet" href="$href('css/wok.css')">
+    <script src="$href('libs/es5-shim/es5-shim.min.js')"></script>
+    <script src="$href('libs/jquery/jquery.min.js')"></script>
+    <script src="$href('libs/jquery-containsNC/jquery.containsNC.js')"></script>
+    <script src="$href('libs/jquery-ui/jquery-ui.min.js')"></script>
+    <script src="$href('libs/jquery-ui/jquery-ui-i18n.min.js')"></script>
+    <script src="$href('libs/jquery-i18n/jquery.i18n.min.js')"></script>
+    <script src="$href('libs/list-js/list.min.js')"></script>
+    <script src="$href('libs/bootstrap/bootstrap.min.js')"></script>
+    <script src="$href('libs/bootstrap-select/dist/js/bootstrap-select.min.js')"></script>
+    <script src="$href('libs/jquery-bootgrid/dist/js/jquery.bootgrid.min.js')"></script>
+    <script src="$href('libs/bootstrap-switch/dist/js/bootstrap-switch.min.js')"></script>
+    <script src="$href('libs/bootstrap-editable/dist/js/bootstrap-editable.min.js')"></script>
+    <script src="$href('libs/typeahead/typeahead.bundle.min.js')"></script>
+    <script src="$href('libs/lodash/lodash.min.js')"></script>
+    <script src="$href('libs/moment/moment-with-locales.min.js')"></script>
+    <script src="$href('libs/datatables/js/datatables.min.js')"></script>
+    <script src="$href('libs/datatables/js/plugins/ip-address/ip-address.js')"></script>
+    <script src="$href('base64/jquery.base64.js')"></script>
+    <script src="$href('js/wok.min.js')"></script>
+    <!-- This is used for detecting if the UI needs to be built -->
+    </head>
+<body onload="wok.main()">
+    <div class="topbar">
+        <nav class="navbar navbar-inverse">
+          <div class="container">
+            <div class="navbar-header">
+{% if wok_customize.system_title | default(false) %}
+              <a id="logo" class="navbar-brand" href="#" title="{{ wok_customize.system_title }}">{{ wok_customize.system_title }}</a>
+{% else %}
+              <a id="logo" class="navbar-brand" href="#" title="Wok">Wok</a>
+{% endif %}
+
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown" id="user-login">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user" id="user-icon"></i><span class="topbar-text empty-when-logged-off" id="user-name"></span><span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="critical"><a id="btn-logout" href="javascript: void(0);"><i class="fa fa-ban"></i><span>$_("Log out")</span></a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-question-circle"></i><span class="topbar-text">$_("Help")</span><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a id="btn-help" href="javascript: void(0);">$_("Help")</a></li>
+                        <li><a id="btn-about" href="#" data-toggle="modal" data-target="#aboutModal">$_("About")</a></li>
+                    </ul>
+                </li>
+            </ul>
+          </div>
+      </nav>
+      <nav class="navbar navbar-default">
+        <div class="container" id="navigation-bar">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-menu" aria-expanded="false">
+                    <span class="sr-only">$_("Toggle navigation")</span>
+                    <span class="icon-bar"><!-- Hamburguer button here --></span>
+                </button>
+            </div>
+            <div id="functionalTabPanel" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="hostname"><span class="host-location"></span></li>
+                </ul>
+            </div>
+            <div id="tabPanel" class="collapse navbar-collapse">
+               <ul class="nav navbar-nav">
+               </ul>
+            </div>
+        </div>
+      </nav>
+      <nav class="navbar navbar-default toolbar">
+        <div class="container">
+          <div id="toolbar">
+            <ul class="nav navbar-nav navbar-right tools"></ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="content">
+        <div id="main">
+        </div>
+    </div>
+    </div>
+
+    <div class="modal fade host-modal" id="aboutModal" tabindex="-1" role="dialog" labelledby="aboutModalLabel" aria-hidden="true">
+    </div>
+
+
+    <div class="fade in session-expiring" id="session-expiring-alert" hidden>
+      <button type="button" class="close">&times;</button>
+      <div class="well">
+        <p>$_("Your session will expire on: 30s. Do you want to renew it?")</p>
+        <div class="form-group">
+          <button class="btn btn-primary btn-xs" id="renew-session-button" onclick="wok.session.renewSession();">$_("Renew")</button>
+          <button class="btn btn-primary btn-xs" id="dismiss-session-button" onclick="wok.session.hideExpiringAlert();">$_("Dismiss")</button>
+        </div>
+      </div>
+    </div>
+
+
+    <script id="about-tmpl" type="wok/template">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" >
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">$_("About")</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="content">
+                        <div class="col-md-10">
+                                <ul id="wok-about" class="list-inline">
+                                    <li>
+                                        <img src="$href('images/wok.svg')" alt="Wok $get_version()" title="Wok">
+                                        <span class="plugin-title">Wok</span>
+                                        <span class="plugin-version">$get_version()</span>
+                                    </li>
+                                </ul>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+         </div>
+    </script>
+    <footer class="footer">
+        <div class="container">
+{% if wok_customize.show_plugin_info %}
+            <p class="text-muted powered hidden">$_("Powered by"):</p>
+            <ul id="plugins">
+            </ul>
+{% endif %}
+{% if wok_customize.show_wok_version %}
+            <span class="wok-version">$_("Wok Version"): $get_version()</span>
+{% endif %}
+        </div>
+    </footer>
+</body>
+</html>

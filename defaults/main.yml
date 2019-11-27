@@ -1,0 +1,11 @@
+---
+# defaults file for kimchi-customize.role
+# Wok customization
+# To change system logo put it in files folder and set system_logo variable as filename
+# Logo padding is logo width +6px (will work only for custom logo)
+wok_customize:
+  system_title: Wok
+  system_logo: default
+  logo_padding: 60px
+  show_plugin_info: false
+  show_wok_version: true
